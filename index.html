@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Banking Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    body {
+      background:
+      radial-gradient(circle at top left, rgba(21,117,50,0.08), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(21,117,50,0.06), transparent 24%),
+      linear-gradient(180deg, #f4f6f3 0%, #ecefe9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 34px 20px;
+      color: #1f2933;
+    }
+
+    .phone {
+      width: 1180px;
+      max-width: 100%;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
+      border: 1px solid #d9ddd7;
+    }
+
+    .top {
+      background: #ffffff;
+      color: #1f2933;
+      padding: 0;
+      position: relative;
+    }
+
+    .demo-label {
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      background: #fff6d6;
+      border: 1px solid #f2d26b;
+      color: #6b5600;
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      z-index: 3;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #157532;
+      color: #ffffff;
+      padding: 14px 26px;
+      margin-bottom: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #ffffff;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .logo-mark:after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ffffff;
+      left: 5px;
+      top: 5px;
+      border-radius: 50%;
+    }
+
+    .menu {
+      display: flex;
+      gap: 34px;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 600;
+      margin-left: 34px;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 7px 12px 7px 7px;
+      border-radius: 999px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e8f5ec;
+      color: #157532;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.7);
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .profile-type {
+      font-size: 11px;
+      color: rgba(255,255,255,.72);
+      margin-top: 2px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 26px;
+      padding: 44px 34px 30px;
+      background: #ffffff;
+    }
+
+    .main-area {
+      min-width: 0;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 34px;
+      text-align: center;
+      color: #242424;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 44px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .balance-label {
+      font-size: 22px;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    .balance {
+      font-size: 46px;
+      font-weight: 800;
+      color: #2f6f55;
+      letter-spacing: -1px;
+    }
+
+    .account-card {
+      background: linear-gradient(135deg, #126c2d, #188139);
+      border-radius: 12px;
+      color: #ffffff;
+      padding: 26px 26px;
+      min-height: 185px;
+      box-shadow: 0 16px 38px rgba(18, 108, 45, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .account-card:after {
+      content: "";
+      position: absolute;
+      right: -35px;
+      top: 54px;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.86);
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .iban {
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+      letter-spacing: 0.3px;
+      margin-bottom: 22px;
+    }
+
+    .card-balance-label {
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 4px;
+    }
+
+    .card-balance {
+      font-size: 29px;
+      font-weight: 800;
+      margin-bottom: 17px;
+    }
+
+    .card-holder {
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.88);
+    }
+
+    .pull-refresh {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 50px;
+      color: #157532;
+      margin: 0 0 10px;
+    }
+
+    .pull-circle {
+      width: 30px;
+      height: 30px;
+      border: 4px solid #d7eadc;
+      border-top-color: #157532;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    .pull-text {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .pull-subtext {
+      font-size: 11px;
+      color: #7b8598;
+      margin-top: 2px;
+    }
+
+    .credit-alert {
+      margin-left: auto;
+      background: #eefaf3;
+      border: 1px solid #cdeedb;
+      color: #0f8a4b;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: all .35s ease;
+    }
+
+    .credit-alert.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #e4e7e2;
+      padding-bottom: 9px;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+      color: #2d2d2d;
+    }
+
+    .section-title span {
+      font-size: 12px;
+      color: #157532;
+      font-weight: 800;
+      border: 1px solid #c9d7c7;
+      border-radius: 4px;
+      padding: 6px 10px;
+    }
+
+    .transactions {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .transactions.loading {
+      opacity: .75;
+      filter: none;
+      transform: none;
+    }
+
+    .transactions.ready {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+
+    .tx {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 4px;
+      border-bottom: 1px solid #ecefed;
+    }
+
+    .tx.new-tx {
+      background: #f3f8ff;
+      border-radius: 8px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    
+
+    .tx-icon { display: none; }
+
+    .tx-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #2e2e2e;
+      margin-bottom: 3px;
+    }
+
+    .tx-date {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .amount {
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .plus { color: #157532; }
+    .minus { color: #222; }
+
+    .side-panel {
+      border-left: 1px solid #e5e7eb;
+      padding-left: 24px;
+    }
+
+    .side-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #242424;
+    }
+
+    .quick-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .quick-item {
+      font-size: 14px;
+      color: #1f2933;
+      border-bottom: 1px solid #eef0ef;
+      padding-bottom: 9px;
+    }
+
+    .offer-box {
+      background: #f5f7f3;
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #e4e9df;
+    }
+
+    .offer-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .offer-text {
+      font-size: 13px;
+      line-height: 1.45;
+      color: #4b5563;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      font-size: 11px;
+      line-height: 1.45;
+      color: #8b94a5;
+      text-align: center;
+      padding-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .side-panel {
+        border-left: none;
+        padding-left: 0;
+      }
+      .menu {
+        display: none;
+      }
+    }
+  
+    .brand-logo-box {
+      width: 260px !important;
+      height: 54px !important;
+      min-width: 260px !important;
+      max-width: 260px !important;
+      overflow: hidden !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      flex-shrink: 0 !important;
+    }
+
+    .bank-logo-wide {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 260px !important;
+      max-height: 54px !important;
+      object-fit: contain !important;
+      object-position: left center !important;
+      display: block !important;
+    }
+	.market-box,
+.security-box {
+  margin-top: 18px;
+  background: #ffffff;
+  border: 1px solid #e4e9df;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.market-title,
+.security-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #1f2933;
+}
+
+.market-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef0ef;
+  font-size: 13px;
+}
+
+.market-item:last-child {
+  border-bottom: none;
+}
+
+.market-item strong {
+  color: #157532;
+}
+
+.market-item .down {
+  color: #b42318;
+}
+
+.security-box p {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.security-box button {
+  border: none;
+  background: #157532;
+  color: white;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: default;
+}
+.brand-logo-box {
+  font-family: 'Cinzel', serif;
+}
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="top">
+      
+
+      <div class="brand-row">
+        <div class="brand-left">
+          <div class="brand brand-logo-box">
+            <img src="bank-logo-wide.png" class="bank-logo-wide" alt="Bank logo">
+          </div>
+          <div class="menu">
+            <div>Conti</div>
+            <div>Bonifici</div>
+            <div>Carte</div>
+            <div>Risparmi</div>
+            <div>Investimenti</div>
+            <div>Servizi</div>
+          </div>
+        </div>
+
+        <div class="profile">
+          <div class="avatar" id="userAvatar"></div>
+          <div>
+            <div class="profile-name" id="userName">Loading...</div>
+            <div class="profile-type">Personal account</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="main-area">
+          <div class="page-title">Riepilogo Conti</div>
+
+          <div class="summary-grid">
+            <div>
+              <div class="balance-label">Saldo Totale</div>
+              <div class="balance" id="balance">€0</div>
+            </div>
+
+            <div class="account-card">
+              <div class="card-title">Conto Corrente</div>
+              <div class="iban">IBAN · IT12 Z062 3081 8706 4039 0562 134</div>
+              <div class="card-balance-label">Saldo disponibile</div>
+              <div class="card-balance" id="cardBalance">€0</div>
+              <div class="card-holder">Titolare:<br><span id="cardHolder">Loading...</span><br>Intesa Demo</div>
+            </div>
+          </div>
+
+          <div class="pull-refresh" id="pullRefresh">
+            <div class="pull-circle" id="pullCircle"></div>
+            <div>
+              <div class="pull-text" id="pullText">Refreshing transactions...</div>
+              <div class="pull-subtext" id="pullSubtext">Pull-to-refresh style sync</div>
+            </div>
+            <div class="credit-alert" id="creditAlert"></div>
+          </div>
+
+          <div class="section-title">
+            <h2>Ultimi Movimenti</h2>
+            <span>Vedi tutti</span>
+          </div>
+
+          <div class="transactions" id="transactions"></div>
+
+          <div class="footer-note">
+            Fictional interface for a game/demo. Not connected to any real bank, card, payment account, or financial service.
+          </div>
+        </div>
+
+        <div class="side-panel">
+          <div class="side-title">Accessi rapidi</div>
+          <div class="quick-list">
+            <div class="quick-item">Trasferenza</div>
+            <div class="quick-item">Domiciliazioni</div>
+            <div class="quick-item">Saldo e movimenti</div>
+            <div class="quick-item">Banco demo</div>
+            <div class="quick-item">Accesso servizi</div>
+          </div>
+
+          <div class="offer-box">
+		  <div class="market-box">
+           <div class="market-title">Mercati oggi</div>
+
+           <div class="market-item">
+           <span>FTSE MIB</span>
+        <strong class="up">+0.84%</strong>
+      </div>
+
+      <div class="market-item">
+        <span>EUR/USD</span>
+        <strong class="down">−0.12%</strong>
+      </div>
+
+      <div class="market-item">
+       <span>Deposito Smart</span>
+        <strong>3.20%</strong>
+     </div>
+</div>
+
+<div class="security-box">
+  <div class="security-title">Sicurezza</div>
+  <p>Controlla accessi, dispositivi autorizzati e notifiche del tuo account demo.</p>
+  <button>Gestisci</button>
+</div>
+            <div class="offer-title">Prodotti e offerte</div>
+            <div class="offer-text">Promozione demo riservata agli utenti del gioco. Dati non reali e non utilizzabili per servizi finanziari.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const startBalance = 600;
+
+    const randomUsers = [
+      "Marco Ricci",
+      "Luca Romano",
+      "Matteo Conti",
+      "Giovanni Ferrari",
+      "Alessandro Moretti",
+      "Davide Lombardi"
+    ];
+
+    const avatarColors = ["#dbeafe", "#e0f2fe", "#fef3c7", "#dcfce7", "#f3e8ff", "#ffe4e6"];
+
+    const transactionCycle = [
+      {
+        type: "minus",
+        name: "Caffè Florian",
+        description: "Coffee purchase",
+        amount: 1.20,
+        avatar: "coffee-avatar.png"
+      },
+      {
+        type: "minus",
+        name: "FreeNow",
+        description: "Taxi payment",
+        amount: 34.00,
+        avatar: "freenow-avatar.png"
+      },
+      {
+        type: "minus",
+        name: "Transfer to Lorenzo Bianchi",
+        description: "Bank transfer",
+        amount: 450.00,
+        avatar: "transfer-avatar.png"
+      },
+      {
+        type: "plus",
+        name: "Tower Rush",
+        description: "Incoming payment",
+        amount: 4250.00,
+        avatar: "towerrush-avatar.png"
+      }
+    ];
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function money(value) {
+      return "€" + value.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function getStoredNumber(key, fallback) {
+      const value = Number(localStorage.getItem(key));
+      return Number.isFinite(value) ? value : fallback;
+    }
+
+    function getOrCreateUser() {
+      const savedUser = localStorage.getItem("demoUser");
+      if (savedUser) return JSON.parse(savedUser);
+
+      const name = randomUsers[randomInt(0, randomUsers.length - 1)];
+      const initials = name.split(" ").map(part => part[0]).join("");
+      const color = avatarColors[randomInt(0, avatarColors.length - 1)];
+      const user = { name, initials, color };
+      localStorage.setItem("demoUser", JSON.stringify(user));
+      return user;
+    }
+
+    const demoUser = getOrCreateUser();
+    const userNameEl = document.getElementById("userName");
+    const userAvatarEl = document.getElementById("userAvatar");
+    const cardHolderEl = document.getElementById("cardHolder");
+
+    userNameEl.textContent = demoUser.name;
+    userAvatarEl.textContent = demoUser.initials;
+    userAvatarEl.style.background = demoUser.color;
+    cardHolderEl.textContent = demoUser.name;
+
+    let balance = getStoredNumber("demoBalance", startBalance);
+    let refreshCount = getStoredNumber("refreshCount", 0);
+    let transactions = JSON.parse(localStorage.getItem("demoTransactions") || "[]");
+    const isFirstOpen = localStorage.getItem("demoStarted") !== "yes";
+    const now = new Date();
+
+    let cycleTx = null;
+
+    if (isFirstOpen) {
+      balance = startBalance;
+      refreshCount = 0;
+      transactions = [];
+      localStorage.setItem("demoStarted", "yes");
+    } else {
+      refreshCount += 1;
+
+      if (refreshCount > transactionCycle.length) {
+        balance = startBalance;
+        refreshCount = 0;
+        transactions = [];
+        cycleTx = null;
+      } else {
+        const cycleIndex = refreshCount - 1;
+        cycleTx = transactionCycle[cycleIndex];
+
+        if (cycleTx.type === "plus") {
+          balance += cycleTx.amount;
+        } else {
+          balance -= cycleTx.amount;
+        }
+
+        const newTransaction = {
+          type: cycleTx.type,
+          name: cycleTx.name,
+          description: cycleTx.description,
+          amount: cycleTx.amount,
+          avatar: cycleTx.avatar,
+          date: now.toLocaleDateString("en-GB") + " · " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+        };
+
+        transactions.unshift(newTransaction);
+        transactions = transactions.slice(0, 7);
+      }
+    }
+
+    localStorage.setItem("demoBalance", balance);
+    localStorage.setItem("refreshCount", refreshCount);
+    localStorage.setItem("demoTransactions", JSON.stringify(transactions));
+
+    document.getElementById("balance").textContent = money(balance);
+    document.getElementById("cardBalance").textContent = money(balance);
+
+    const transactionsEl = document.getElementById("transactions");
+    transactionsEl.classList.add("loading");
+
+    transactionsEl.innerHTML = transactions.map((tx, index) => {
+      const sign = tx.type === "plus" ? "+" : "−";
+      const cls = tx.type === "plus" ? "plus" : "minus";
+
+      return `
+        <div class="tx ${index === 0 ? "new-tx" : ""}">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <img src="${tx.avatar}" onerror="this.style.display='none'" style="width:42px;height:42px;border-radius:50%;object-fit:cover;background:#f3f4f6;">
+            <div>
+              <div class="tx-name">${tx.name}</div>
+              <div class="tx-date">${tx.description} · ${tx.date}</div>
+            </div>
+          </div>
+          <div class="amount ${cls}">${sign}${money(tx.amount)}</div>
+        </div>
+      `;
+    }).join("");
+
+    setTimeout(() => {
+      const creditAlert = document.getElementById("creditAlert");
+      const pullText = document.getElementById("pullText");
+      const pullSubtext = document.getElementById("pullSubtext");
+      const circle = document.getElementById("pullCircle");
+
+      if (cycleTx) {
+        creditAlert.textContent = (cycleTx.type === "plus" ? "+" : "−") + money(cycleTx.amount) + " · " + cycleTx.name;
+        creditAlert.classList.add("show");
+        pullText.textContent = "Transactions updated";
+        pullSubtext.textContent = "New operation added · " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+      } else {
+        pullText.textContent = "Account ready";
+        pullSubtext.textContent = "Starting balance loaded · " + money(startBalance);
+      }
+
+      circle.style.animation = "none";
+      circle.style.borderColor = "#0f8a4b";
+      circle.style.borderTopColor = "#0f8a4b";
+
+      transactionsEl.classList.remove("loading");
+      transactionsEl.classList.add("ready");
+    }, 1200);
+  </script>
+</body>
+</html>
